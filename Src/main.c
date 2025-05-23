@@ -32,6 +32,8 @@ int main(void)
 
     // LED Externo ON/OFF
     gpio_setup_pin(GPIOA, EXTERNAL_LED_ONOFF_PIN, GPIO_MODE_OUTPUT, 0);
+    // NUEVO: LED de botón en PA7
+    gpio_setup_pin(GPIOA, 7, GPIO_MODE_OUTPUT, 0);
 
     // Botón B1
     gpio_setup_pin(GPIOC, 13, GPIO_MODE_INPUT, 0);
@@ -43,7 +45,7 @@ int main(void)
 
     // TIM3 Canal 1 para PWM
     tim3_ch1_pwm_init(1000); // ej. 1000 Hz
-    tim3_ch1_pwm_set_duty_cycle(70); // ej. 50%
+    tim3_ch1_pwm_set_duty_cycle(70); // ej. 70%
 
     // Inicialización de la Lógica de la Aplicación (room_control)
     room_control_app_init();
@@ -52,6 +54,7 @@ int main(void)
     uart2_send_string("\r\nSistema Inicializado. Esperando eventos...\r\n");
     while (1) {
         heartbeat_led_toggle();
+        room_control_update();
     }
 }
 

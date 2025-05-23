@@ -74,7 +74,8 @@ void EXTI15_10_IRQHandler(void) {
     if ((EXTI->PR1 & (1U << 13)) != 0) {
         // 2. Limpiar el flag de pendiente de la interrupción (escribiendo '1')
         EXTI->PR1 |= (1U << 13);
-        // 3. Procesar boton presionado
+        // 3. Procesar el evento del botón
+        room_control_on_button_press();
     }
 }
 

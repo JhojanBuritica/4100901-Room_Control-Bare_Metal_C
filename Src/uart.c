@@ -63,9 +63,7 @@ void USART2_IRQHandler(void)
 {
     // Verificar si la interrupción fue por RXNE (dato recibido y RDR no vacío)
     if (USART2->ISR & USART_ISR_RXNE) {
-        // Leer el dato del RDR. Esta acción usualmente limpia el flag RXNE.
-        char received_char = (char)(USART2->RDR & 0xFF);
-        uart2_send_char(received_char); // Eco del carácter recibido 
-        // Procesar el carácter recibido.
+        char c = USART2->RDR; // Leer el carácter recibido
+        room_control_on_uart_receive(c);
     }
 }
