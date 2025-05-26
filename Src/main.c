@@ -44,6 +44,7 @@ int main(void)
     nvic_usart2_irq_enable();
 
     // TIM3 Canal 1 para PWM
+    gpio_setup_pin(GPIOA, 6, GPIO_MODE_AF, 0); // Necesario para salida PWM por PA6 (TIM3_CH1)
     tim3_ch1_pwm_init(1000); // ej. 1000 Hz
     tim3_ch1_pwm_set_duty_cycle(70); // ej. 70%
 

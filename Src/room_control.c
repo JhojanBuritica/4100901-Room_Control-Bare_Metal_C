@@ -31,6 +31,8 @@ void room_control_on_uart_receive(char received_char)
 {
      static uint8_t pwm_state = 1; // 1 = ON, 0 = OFF
 
+
+     
     switch (received_char) {
         case 'h':
         case 'H':
@@ -47,9 +49,8 @@ void room_control_on_uart_receive(char received_char)
             break;
 
         case 't':
-            pwm_state = !pwm_state;
-            tim3_ch1_pwm_set_duty_cycle(pwm_state ? 100 : 0);
-            uart2_send_string(pwm_state ? "LED ON (toggle)\r\n" : "LED OFF (toggle)\r\n");
+            gpio_toggle_pin(EXTERNAL_LED_PORT, EXTERNAL_LED_PIN); // Toggle en el LED de PA7
+            uart2_send_string("LED externo toggled con 't'\r\n");
             break;
 
         default:
